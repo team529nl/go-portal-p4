@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is JAX-WS RI 2.2.11-b150616.1732 svn-revision#a247ba216861f2c0baac9a3657c5690bce0c744d. -->
+<!--suppress ALL -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ws="urn:nedu:edsn:service:p4:2:standard"
+             xmlns:ccma1="urn:nedu:edsn:data:p4collecteddatabatchrequest:2:standard"
+             xmlns:ccma2="urn:nedu:edsn:data:p4collecteddatabatchresponse:2:standard"
+             xmlns:ccma3="urn:nedu:edsn:data:p4collecteddatabatchresultrequest:2:standard"
+             xmlns:ccma4="urn:nedu:edsn:data:p4collecteddatabatchresultresponse:2:standard"
+             xmlns:ccma5="urn:edsn:edsn:data:soapfault:1:standard" targetNamespace="urn:nedu:edsn:service:p4:2:standard"
+             xmlns:wsp="http://www.w3.org/ns/ws-policy"
+             xmlns:wssutil="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <wsp:UsingPolicy wssutil:Required="true"/>
+    <ns0:Policy xmlns:ns0="http://schemas.xmlsoap.org/ws/2004/09/policy" wssutil:Id="p4-policy">
+        <ns1:AsymmetricBinding xmlns:ns1="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+            <ns0:Policy>
+                <ns1:InitiatorToken>
+                    <ns0:Policy>
+                        <ns1:X509Token
+                                ns1:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <ns0:Policy>
+                                <ns1:WssX509V3Token10/>
+                            </ns0:Policy>
+                        </ns1:X509Token>
+                    </ns0:Policy>
+                </ns1:InitiatorToken>
+                <ns1:RecipientToken>
+                    <ns0:Policy>
+                        <ns1:X509Token
+                                ns1:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-trust/200702/ws-securitypolicy/IncludeToken/AlwaysToInitiator">
+                            <ns0:Policy>
+                                <ns1:WssX509V3Token10/>
+                            </ns0:Policy>
+                        </ns1:X509Token>
+                    </ns0:Policy>
+                </ns1:RecipientToken>
+                <ns1:AlgorithmSuite>
+                    <ns0:Policy>
+                        <ns1:Basic128/>
+                    </ns0:Policy>
+                </ns1:AlgorithmSuite>
+                <ns1:Layout>
+                    <ns0:Policy>
+                        <ns1:Lax/>
+                    </ns0:Policy>
+                </ns1:Layout>
+            </ns0:Policy>
+        </ns1:AsymmetricBinding>
+        <ns1:Wss11 xmlns:ns1="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+            <ns0:Policy>
+                <ns1:MustSupportRefKeyIdentifier/>
+                <ns1:MustSupportRefIssuerSerial/>
+            </ns0:Policy>
+        </ns1:Wss11>
+    </ns0:Policy>
+    <ns0:Policy xmlns:ns0="http://schemas.xmlsoap.org/ws/2004/09/policy" wssutil:Id="Wssp1.2-2007-SignBody.xml">
+        <ns1:SignedParts xmlns:ns1="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+            <ns1:Body/>
+        </ns1:SignedParts>
+    </ns0:Policy>
+    <types>
+        <xsd:schema>
+            <xsd:import schemaLocation="https://pp4-test.edsn.nl:443/P4BatchVerzoekMeterstand/P4Port?xsd=1"
+                        namespace="urn:nedu:edsn:data:p4collecteddatabatchrequest:2:standard"/>
+            <xsd:import schemaLocation="https://pp4-test.edsn.nl:443/P4BatchVerzoekMeterstand/P4Port?xsd=2"
+                        namespace="urn:nedu:edsn:data:p4collecteddatabatchresponse:2:standard"/>
+            <xsd:import schemaLocation="https://pp4-test.edsn.nl:443/P4BatchVerzoekMeterstand/P4Port?xsd=3"
+                        namespace="urn:nedu:edsn:data:p4collecteddatabatchresultrequest:2:standard"/>
+            <xsd:import schemaLocation="https://pp4-test.edsn.nl:443/P4BatchVerzoekMeterstand/P4Port?xsd=4"
+                        namespace="urn:nedu:edsn:data:p4collecteddatabatchresultresponse:2:standard"/>
+            <xsd:import schemaLocation="https://pp4-test.edsn.nl:443/P4BatchVerzoekMeterstand/P4Port?xsd=5"
+                        namespace="urn:edsn:edsn:data:soapfault:1:standard"/>
+        </xsd:schema>
+    </types>
+    <message name="P4CollectedDataBatchRequestEnvelope">
+        <part name="part1" element="ccma1:P4CollectedDataBatchRequestEnvelope"/>
+    </message>
+    <message name="P4CollectedDataBatchResponseEnvelope">
+        <part name="part1" element="ccma2:P4CollectedDataBatchResponseEnvelope"/>
+    </message>
+    <message name="P4CollectedDataBatchResultRequestEnvelope">
+        <part name="part1" element="ccma3:P4CollectedDataBatchResultRequestEnvelope"/>
+    </message>
+    <message name="P4CollectedDataBatchResultResponseEnvelope">
+        <part name="part1" element="ccma4:P4CollectedDataBatchResultResponseEnvelope"/>
+    </message>
+    <message name="SOAPFault">
+        <part name="part1" element="ccma5:SOAPFault"/>
+    </message>
+    <portType name="P4PortType">
+        <operation name="P4CollectedDataBatchRequest">
+            <input message="ws:P4CollectedDataBatchRequestEnvelope"/>
+            <output message="ws:P4CollectedDataBatchResponseEnvelope"/>
+            <fault name="SOAPFault" message="ws:SOAPFault"/>
+        </operation>
+        <operation name="P4CollectedDataBatchResultRequest">
+            <input message="ws:P4CollectedDataBatchResultRequestEnvelope"/>
+            <output message="ws:P4CollectedDataBatchResultResponseEnvelope"/>
+            <fault name="SOAPFault" message="ws:SOAPFault"/>
+        </operation>
+    </portType>
+    <binding name="P4Binding" type="ws:P4PortType">
+        <wsp:PolicyReference URI="#p4-policy"/>
+        <wsp:PolicyReference URI="#Wssp1.2-2007-SignBody.xml"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="P4CollectedDataBatchRequest">
+            <soap:operation style="document" soapAction="urn:P4CollectedDataBatchRequest"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="SOAPFault">
+                <soap:fault name="SOAPFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="P4CollectedDataBatchResultRequest">
+            <soap:operation style="document" soapAction="urn:P4CollectedDataBatchResultRequest"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="SOAPFault">
+                <soap:fault name="SOAPFault" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="P4">
+        <port name="P4Port" binding="ws:P4Binding">
+            <soap:address location="https://pp4-test.edsn.nl:443/P4BatchVerzoekMeterstand/P4Port"/>
+        </port>
+    </service>
+</definitions>
